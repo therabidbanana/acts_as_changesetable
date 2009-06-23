@@ -15,7 +15,6 @@ module ActsAsChangesetable
     def sync_changeable!
       self.changeable.sync_changeable! if(self.changeable.updated_at < self.updated_at)
     end
-
     
     module ClassMethods
       # Turns of Rails' autotimestamping if we want to copy timestamps ourselves
