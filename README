@@ -7,7 +7,7 @@ that you have created already. It needs a foreign key tying it to the changeable
 to tie it to the changeset.
 
 The change history class must be set as well, it is not automatically generated.
-(TODO: Create a generator that creates a History class for a class, and a changeset class)
+(TODO: Create a generator that creates a History class for a class, and a changeset class) 
 
 == Why use Changesetable?
 Changesetable was made for a specific purpose - the ability to sync a Rails app with a mobile
