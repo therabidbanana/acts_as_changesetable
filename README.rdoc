@@ -52,7 +52,7 @@ http://ariejan.net/2008/08/12/ruby-on-rails-uuid-as-your-activerecord-primary-ke
     acts_as_changeable_history :same_as_changeable => true
   end
   class Changeset < ActiveRecord::Base
-    acts_as_changeset :changeables => ["Foo"]
+    acts_as_changeset :changeable_histories => ["FooHistory"]
   end
 
   ...

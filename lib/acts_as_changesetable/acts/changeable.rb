@@ -84,9 +84,12 @@ module ActsAsChangesetable
       # Split into two classes because dirty tracking returns false for new objects. 
       # (Which sort of makes sense. I can't find an "unsaved" ActiveModel method though, which
       # I imagine should exist somewhere.)
+      # 
+      # self.new_record? <- found it.
+      # Don't need the separate callbacks any more.
       def changeable_setup
-        after_update :after_changeable_save
-        after_create :after_changeable_create
+        after_save :after_changeable_save
+        # after_create :after_changeable_create
       end
     end
   end

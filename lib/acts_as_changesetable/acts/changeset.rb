@@ -9,7 +9,7 @@ module ActsAsChangesetable
     # for all classes set in the changeable_histories option
     def changes
       @list = {}
-      for name in changeables_list
+      self.changeables_list.each do |name|
         @list[name] = name.to_s.constantize.find_all_by_changeset_id(self.id)
       end
       @list
@@ -30,6 +30,7 @@ module ActsAsChangesetable
         changes[name].each{|history| history.changeable.sync_changeable!}
       end
     end
+    
     
     module ClassMethods
       # Get the currently active changeset (useful so that you can then get a list of changes

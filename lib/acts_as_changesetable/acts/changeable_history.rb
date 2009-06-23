@@ -6,16 +6,26 @@ module ActsAsChangesetable
       base.changeable_history_setup
     end
     
+    # Returns the associated changeable
     def changeable
       self.changeable_class.find(self.send(self.changeable_fk))
     end
+    
+    # Checks the associated changeable and updates it if needed
+    def sync_changeable!
+      self.changeable.sync_changeable! if(self.changeable.updated_at < self.updated_at)
+    end
+
     
     module ClassMethods
       # Turns of Rails' autotimestamping if we want to copy timestamps ourselves
       # Then add a belongs_to for :changeset
       def changeable_history_setup
         if self.changesetable_options.copy_timestamps?
-          self.record_timestamps = false
+          self.instance_eval {
+            def record_timestamps; return false; end;
+            def record_timestamps=(arg); return false; end;
+          }
         end
         belongs_to :changeset, :class_name => self.changeset_class_name
       end
@@ -27,7 +37,7 @@ module ActsAsChangesetable
         # Create field names from symbols
         my_fields = self.changeable_fields.map{|m| m.to_s}
         # Find the intersection of tracked fields and changed fields for item.
-        if(force || (my_fields & changeable.changed).size > 0)
+        if(force || (my_fields & changeable.changed).size > 0 || self.new_record?)
           new_change = self.new
           new_change.send("#{self.changeable_fk}=", changeable.id)
           for field in self.changeable_fields
