@@ -1,0 +1,67 @@
+8
+
+dir
+294
+svn+ssh://i10svn.informatik.rwth-aachen.de/svn/apda3/trunk/web-client/vendor/plugins/acts_as_changesetable/lib/acts_as_changesetable
+svn+ssh://i10svn.informatik.rwth-aachen.de/svn/apda3
+
+
+
+2009-06-16T15:26:16.723271Z
+294
+haslem
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+6a552102-f83a-4c07-9529-c7822653c4e7
+
+history.rb
+file
+
+
+
+
+2009-06-16T09:35:26.000000Z
+923f46dfeb4609dcc7d4f039f451dfe3
+2009-06-16T09:32:45.332589Z
+290
+haslem
+
+acts
+dir
+
+base.rb
+file
+300
+
+
+
+2009-06-22T09:41:27.000000Z
+7c40078ad7394a68e109c06410625155
+2009-06-22T09:47:39.472225Z
+300
+haslem
+
+options.rb
+file
+299
+
+
+
+2009-06-19T15:04:13.000000Z
+158f1b9a4364c80fae8fc2a1925de724
+2009-06-19T15:11:20.993299Z
+299
+haslem
+

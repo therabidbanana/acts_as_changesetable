@@ -1,0 +1,40 @@
+8
+
+dir
+294
+svn+ssh://i10svn.informatik.rwth-aachen.de/svn/apda3/trunk/web-client/vendor/plugins/acts_as_changesetable/tasks
+svn+ssh://i10svn.informatik.rwth-aachen.de/svn/apda3
+
+
+
+2009-06-16T09:32:45.332589Z
+290
+haslem
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+6a552102-f83a-4c07-9529-c7822653c4e7
+
+acts_as_changesetable_tasks.rake
+file
+
+
+
+
+2009-06-16T09:35:26.000000Z
+847983eccb29dada86fc8eb8bf49a41d
+2009-06-16T09:32:45.332589Z
+290
+haslem
+

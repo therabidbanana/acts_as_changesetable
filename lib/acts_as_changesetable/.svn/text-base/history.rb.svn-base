@@ -1,0 +1,10 @@
+module ActsAsChangesetable
+  class History
+    attr_accessor :main_class
+    attr_accessor :history_class
+    def foo
+      puts 'foo'
+    end
+  end
+  
+end
