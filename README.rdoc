@@ -1,0 +1,164 @@
+== acts_as_changesetable
+acts_as_changeable and its friends (acts_as_changeable_history, acts_as_changeset) 
+will make an object keep track of its changes in a change history class.
+
+The change histories will then be associated with a specific changeset. This must be a model
+that you have created already. It needs a foreign key tying it to the changeable and a key
+to tie it to the changeset.
+
+The change history class must be set as well, it is not automatically generated.
+(TODO: Create a generator that creates a History class for a class, and a changeset class)
+
+== Why use Changesetable?
+Changesetable was made for a specific purpose - the ability to sync a Rails app with a mobile
+device. This is the reason for the construction of the versioning history in such a way. 
+This is not to say that it could not be adapted for other purposes, but in practice, most
+apps would probably be better off with a more robust, developed plugin like acts_as_versioned
+
+What benefits does changesetable offer for the use case described above over 
+other plugins?
+
+* Separation of history from items. Interaction can be done with the items, and these
+  changes can then be mirrored. Synchronization can focus solely on exchanging history items.
+  This just makes things a bit easier conceptually than storing old versions of the same item
+  in the same table.
+  
+* Tracking of changes in changesets. Since you might have multiple items to track changes to,
+  it is better to be able to associate all changes to the database with a single changeset, 
+  so in synchronization, we can refer to changes we need to sync by changesets we don't have.
+  Again, this is not a necessary construction, just one that's useful conceptually.
+
+== What else is needed for the synchronization?
+
+To complete the synchronization package, we first need safe id's for all items (if two DB's are 
+both auto-incrementing their IDs, then we end up with lots of primary key conflicts)
+
+This problem can be solved by fixing auto-increment in some way - one gets odd ids, one evens... etc.
+
+If this is not ideal, for example in the case where you can't plan ahead as to how many DBs 
+you might have, the other option is to create ids which are globally unique. The UUID scheme
+was invented for just this purpose. You can use the gem 'uuidtools' and set up Rails models
+to use UUID instead of id as described here:
+
+http://ariejan.net/2008/08/12/ruby-on-rails-uuid-as-your-activerecord-primary-key/
+
+
+== Example:
+
+  class Foo < ActiveRecord::Base
+    acts_as_changeable :fields => [:field1, :field2]
+  end
+  class FooHistory < ActiveRecord::Base
+    acts_as_changeable_history :same_as_changeable => true
+  end
+  class Changeset < ActiveRecord::Base
+    acts_as_changeset :changeables => ["Foo"]
+  end
+
+  ...
+
+  foo = Foo.new
+  foo.field1 = 'a'
+  foo.field2 = 'b'
+  foo.save
+  FooHistory.find_by_foo_id(foo.id).size # -> 1
+  foo.field2 = 'c'
+  foo.save
+  FooHistory.find_by_foo_id(foo.id).size # -> 2
+
+  Changeset.active_changeset.changes["Foo"].size # -> 2
+  Changeset.new_changeset
+  Changeset.active_changeset.changes["Foo"].size # -> 0
+
+== Required Setup
+As mentioned before, you must have three models already defined, the changeable one, the change 
+history one, and the changeset one. 
+
+Changesets should have, at minimum, the following fields:
+
+* rails timestamps
+* a boolean "is_active" to denote the latest changeset
+
+Change History models need any fields you want to keep a change history of, a foreign key 
+pointing to the changeable class, and a foreign key pointing to the changeset class. 
+By default these foreign keys are assumed to be named by ruby conventions
+(foo_id for Changeable named Foo, foo_bar_id for Changeable named FooBar, etc)
+
+It is assumed your changesets use the "Changeset" model and your changeable histories
+will be named with the word History after, "Foo" -> "FooHistory", for example.
+
+== Required Options
+=== acts_as_changeable:
+
+- fields
+  
+  an array of field names (as symbols)
+  
+=== acts_as_changeable_history:
+
+- same_as_changeable
+  
+  set this to true to match the changeable options
+    
+  If you wish to have separate settings for the changeable history class, you can set them instead 
+  of using this option, but this shouldn't be necessary in most cases (example of when you might use
+  manual configuration -> when you are storing multiple changeables' histories into a single 
+  changeable_history, (this case hasn't been tested))
+  
+=== acts_as_changeset
+
+- changeable_histories
+
+  List of all changeable history classes we want to be able to track with this changeset as strings. 
+
+== Optional
+
+(both classes)
+
+- changeable_class
+
+  Name of changeable_class. Default set to be self.class.to_s.gsub('/History$/', '')
+  
+- changeable_history_class
+
+  Name of changeable_history class. Default set to self.class.to_s + "History" unless in a history class.
+  In which case it's just self.class.to_s
+  
+- changeable_fk
+
+  Name of the foreign key changeable_history uses to belong to the changeable class. 
+  Default is changeable_class.downcase + "_id"
+  
+- copy_timestamps
+
+  Shortcut to copy created_at and updated_at Rails timestamps. Defaults to false.
+  
+- copy_deleted
+
+  If using the deleted_at paranoid delete style, use can this to copy the deleted_at field.
+
+== Changeables
+
+Interact with the changeable class as normal. An after_save hook has been added that mirrors all 
+changes into the associated changehistory class
+
+Todo: Add methods for accessing the history and rolling back changes.
+
+== Changesets
+
+The changeset model will have three new methods:
+
+- Changeset.active_changeset
+
+  Find the changeset set to is_active.
+  If it doesn't exist, create a new one and set it to active, then return it.
+  
+- Changeset.new_changeset
+
+  Set all changesets inactive, then create a new one that is active
+  
+- changes
+
+  Return all changes associated with this changeset. Returns as a hash of :classname => class.find_all_by_changeset_id()
+
+Copyright (c) 2009 David Haslem, released under the MIT license
