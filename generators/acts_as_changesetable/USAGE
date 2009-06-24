@@ -1,0 +1,7 @@
+This plugin turns the named resource into a changeset tracked resource. 
+
+script/generate changeable_history Foo 
+  This will create a migration called FooHistory, and a resource FooHistory that 
+  has "acts_as_changeable_history :same_as_changeable => true"
+
+  After running, add a line to your Foo model: "acts_as_changeable"

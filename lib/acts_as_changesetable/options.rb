@@ -6,6 +6,7 @@ module ActsAsChangesetable
       @lock = false
       @copy = false
       @options = options.extract_options!
+      @options.default = nil
       @copy = true if @options[:same_as_changeable]
       instance_eval(&block) if block_given?
       @lock = true
@@ -14,7 +15,7 @@ module ActsAsChangesetable
 
     def method_missing(key, *args)
       if(key.to_s == 'same_as_changeable') 
-        @copy = true
+        @options[:copy] = true
       end
       return (@options[key.to_s.gsub(/\?$/, '').to_sym].eql?(true)) if key.to_s.match(/\?$/)
       if args.blank?

@@ -27,7 +27,7 @@ module ActsAsChangesetable
     
     # A convenience method for accessing the class method changeable_fields
     def changeable_fields
-      self.class.changeable_fields
+      self.class.changeable_fields(self)
     end
     
     # A convenience method for accessing the class method changeable_class
@@ -128,8 +128,11 @@ module ActsAsChangesetable
       end
       
       # Returns a list of changeable fields
-      def changeable_fields
-        self.changesetable_options.fields
+      def changeable_fields(for_changeable = false)
+        list = []
+        for_changeable.attributes.each{|k,v| list << k unless [:updated_at, :created_at, :deleted_at, :id].include?(k)} if for_changeable
+        return list if (for_changeable && !self.changesetable_options.fields)
+        return self.changesetable_options.fields 
       end
     end
   end

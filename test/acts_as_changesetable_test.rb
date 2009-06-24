@@ -28,6 +28,14 @@ class BazHistory < ActiveRecord::Base
   acts_as_changeable_history :changeable_history_class => 'Baz'
 end
 
+class Apple < ActiveRecord::Base
+  acts_as_changeable
+end
+
+class AppleHistory < ActiveRecord::Base
+  acts_as_changeable_history
+end
+
 class SameHistory < ActiveRecord::Base
   acts_as_changeable_history do
     changeable_class 'Foo'
@@ -49,6 +57,8 @@ class ActsAsChangesetableTest < ActiveSupport::TestCase
     Foo.find(:all).each{|e| e.delete}
     Changeset.find(:all).each{|e| e.delete}
     FooHistory.find(:all).each{|e| e.delete}
+    Apple.find(:all).each{|e| e.delete}
+    AppleHistory.find(:all).each{|e| e.delete}
   end
   # Make sure the options get set.
   def test_options_hash
@@ -248,6 +258,31 @@ class ActsAsChangesetableTest < ActiveSupport::TestCase
     c = Changeset.find(:first)
     assert_not_nil c.changeables_list
     assert_equal 1, c.changeables_list.size
+  end
+  # Test that acts_as_changeable_history defaults to :same_as_changeable
+  def test_default_changeable_history_same_as_changeable
+    assert_equal Apple.changesetable_options, AppleHistory.changesetable_options
+  end
+  # Test that we don't have to list fields to track.
+  def test_dont_need_field_options
+    a = Apple.new
+    a.color = 'red'
+    a.size = 'small'
+    a.save
+    b = AppleHistory.find(:first)
+    assert_not_nil b
+    assert_equal a.color, b.color
+    assert_equal a.size, b.size
+    # Time objects get more precise than ActiveRecord can handle... maybe be off by up to half a second.
+    assert_in_delta a.updated_at, b.updated_at, 1
+  end
+  
+  # Test tracking of deleted_at paranoid objects - need to create a history when "deleted"
+  def test_destroy_creates_a_history_if_tracking_deleted_at
+    a = Foo.new
+    a.save
+    a.destroy
+    assert_equal 2, FooHistory.find(:all).size
   end
   # Test that our database is getting cleaned after every test. (Necessary for the other tests to work)
   def test_clean_db

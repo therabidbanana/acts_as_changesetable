@@ -34,12 +34,12 @@ module ActsAsChangesetable
       # (Useful since new objects are not considered dirty)
       def new_from_changeable(changeable, force = false)
         # Create field names from symbols
-        my_fields = self.changeable_fields.map{|m| m.to_s}
+        my_fields = changeable.changeable_fields.map{|m| m.to_s}
         # Find the intersection of tracked fields and changed fields for item.
         if(force || (my_fields & changeable.changed).size > 0 || changeable.new_record? || changeable.frozen?)
           new_change = self.new
           new_change.send("#{self.changeable_fk}=", changeable.id)
-          for field in self.changeable_fields
+          for field in changeable.changeable_fields
             new_change.send("#{field}=", changeable.send(field))
           end
           unless self.changesetable_options.no_copy_timestamps?

@@ -13,6 +13,18 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer "changeset_id"
     t.timestamps
   end
+  create_table :apples, :force => true do |t|
+    t.string "color"
+    t.string "size"
+    t.timestamps
+  end
+  create_table :apple_histories, :force => true do |t|
+    t.integer "apple_id"
+    t.string "color"
+    t.string "size"
+    t.integer "changeset_id"
+    t.timestamps
+  end
   create_table :bar_histories, :force => true do |t|
   end
   create_table :changesets, :force => true do |t|

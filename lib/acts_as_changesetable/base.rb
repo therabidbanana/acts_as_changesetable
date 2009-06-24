@@ -24,6 +24,7 @@ module ActsAsChangesetable
     # Sets a class to be a changeable_history. See README for details
     def acts_as_changeable_history(*args, &block)
       self.send :include, Common
+      args = [{:same_as_changeable => true}] if args.size == 0 and !block_given?
       changeable_common_setup(args, block)
       self.send :include, ChangeableHistory
     end
