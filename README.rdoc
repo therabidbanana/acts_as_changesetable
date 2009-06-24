@@ -46,10 +46,10 @@ http://ariejan.net/2008/08/12/ruby-on-rails-uuid-as-your-activerecord-primary-ke
 == Example:
 
   class Foo < ActiveRecord::Base
-    acts_as_changeable :fields => [:field1, :field2]
+    acts_as_changeable
   end
   class FooHistory < ActiveRecord::Base
-    acts_as_changeable_history :same_as_changeable => true
+    acts_as_changeable_history
   end
   class Changeset < ActiveRecord::Base
     acts_as_changeset :changeable_histories => ["FooHistory"]
@@ -88,32 +88,26 @@ It is assumed your changesets use the "Changeset" model and your changeable hist
 will be named with the word History after, "Foo" -> "FooHistory", for example.
 
 == Required Options
-=== acts_as_changeable:
-
-- fields
   
-  an array of field names (as symbols)
-  
-=== acts_as_changeable_history:
-
-- same_as_changeable
-  
-  set this to true to match the changeable options
-    
-  If you wish to have separate settings for the changeable history class, you can set them instead 
-  of using this option, but this shouldn't be necessary in most cases (example of when you might use
-  manual configuration -> when you are storing multiple changeables' histories into a single 
-  changeable_history, (this case hasn't been tested))
   
 === acts_as_changeset
 
 - changeable_histories
 
   List of all changeable history classes we want to be able to track with this changeset as strings. 
+  
 
 == Optional
 
-(both classes)
+=== acts_as_changeable
+
+- fields
+  
+  An array of field names to track (as symbols). By default, this is every attribute we can find on the object.
+
+=== acts_as_changeable_history
+
+=== (both classes)
 
 - changeable_class
 
