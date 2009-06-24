@@ -129,13 +129,13 @@ will be named with the word History after, "Foo" -> "FooHistory", for example.
   Name of the foreign key changeable_history uses to belong to the changeable class. 
   Default is changeable_class.downcase + "_id"
   
-- copy_timestamps
+- no_copy_timestamps
 
-  Shortcut to copy created_at and updated_at Rails timestamps. Defaults to false.
+  Disables copying of timestamps (defaults on)
   
-- copy_deleted
+- no_copy_deleted
 
-  If using the deleted_at paranoid delete style, use can this to copy the deleted_at field.
+  We copy the deleted_at column unless this is set.
 
 == Changeables
 

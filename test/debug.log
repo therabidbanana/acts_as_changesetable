@@ -17119,3 +17119,546 @@
   [4;36;1mFooHistory Load (0.3ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
   [4;35;1mFooHistory Delete all (1.9ms)[0m   [0mDELETE FROM "foo_histories" WHERE ("id" IN (14)) [0m
   [4;36;1mFooHistory Delete all (2.6ms)[0m   [0;1mDELETE FROM "foo_histories" WHERE ("id" IN (15)) [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (1.1ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (3.7ms)[0m   [0;1mDROP TABLE "foos"[0m
+  [4;35;1mSQL (2.6ms)[0m   [0mCREATE TABLE "foos" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "field1" varchar(255), "field2" varchar(255), "field3" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (2.6ms)[0m   [0mDROP TABLE "foo_histories"[0m
+  [4;36;1mSQL (4.4ms)[0m   [0;1mCREATE TABLE "foo_histories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "foo_id" integer, "field1" varchar(255), "field2" varchar(255), "field3" varchar(255), "changeset_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (7.5ms)[0m   [0;1mDROP TABLE "bar_histories"[0m
+  [4;35;1mSQL (2.0ms)[0m   [0mCREATE TABLE "bar_histories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL) [0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (2.0ms)[0m   [0mDROP TABLE "changesets"[0m
+  [4;36;1mSQL (2.1ms)[0m   [0;1mCREATE TABLE "changesets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime, "updated_at" datetime, "is_active" boolean) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM "schema_migrations"[0m
+  [4;35;1mFoo Load (0.2ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Create (0.3ms)[0m   [0;1mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES('a', '2009-06-24 09:54:46', 'b', 'c', '2009-06-24 09:54:46')[0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') [0m
+  [4;35;1mChangeset Create (0.4ms)[0m   [0mINSERT INTO "changesets" ("updated_at", "is_active", "id", "created_at") VALUES('2009-06-24 09:54:46', 't', 0, '2009-06-24 09:54:46')[0m
+  [4;36;1mFooHistory Create (0.2ms)[0m   [0;1mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('a', 0, '2009-06-24 09:54:46', 1, 'b', NULL, '2009-06-24 09:54:46')[0m
+  [4;35;1mFoo Update (0.4ms)[0m   [0mUPDATE "foos" SET "field3" = 'a', "updated_at" = '2009-06-24 09:54:46' WHERE "id" = 1[0m
+  [4;36;1mFoo Load (0.3ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mFoo Delete all (1.8ms)[0m   [0mDELETE FROM "foos" WHERE ("id" IN (1)) [0m
+  [4;36;1mChangeset Load (0.2ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mChangeset Delete all (1.9ms)[0m   [0mDELETE FROM "changesets" WHERE ("id" IN (0)) [0m
+  [4;36;1mFooHistory Load (0.3ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFooHistory Delete all (2.1ms)[0m   [0mDELETE FROM "foo_histories" WHERE ("id" IN (1)) [0m
+  [4;36;1mFoo Create (0.3ms)[0m   [0;1mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES(NULL, '2009-06-24 09:54:46', NULL, NULL, '2009-06-24 09:54:46')[0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Create (0.3ms)[0m   [0;1mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES('a', '2009-06-24 09:54:46', 'b', 'c', '2009-06-24 09:54:46')[0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') [0m
+  [4;35;1mChangeset Create (0.1ms)[0m   [0mINSERT INTO "changesets" ("updated_at", "is_active", "id", "created_at") VALUES('2009-06-24 09:54:46', 't', 0, '2009-06-24 09:54:46')[0m
+  [4;36;1mFooHistory Create (0.1ms)[0m   [0;1mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('a', 0, '2009-06-24 09:54:46', 2, 'b', NULL, '2009-06-24 09:54:46')[0m
+  [4;35;1mFoo Update (0.3ms)[0m   [0mUPDATE "foos" SET "field3" = 'd', "updated_at" = '2009-06-24 09:54:46' WHERE "id" = 2[0m
+  [4;36;1mFoo Load (0.4ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mFoo Delete all (1.7ms)[0m   [0mDELETE FROM "foos" WHERE ("id" IN (2)) [0m
+  [4;36;1mChangeset Load (0.2ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mChangeset Delete all (1.9ms)[0m   [0mDELETE FROM "changesets" WHERE ("id" IN (0)) [0m
+  [4;36;1mFooHistory Load (0.2ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFooHistory Delete all (1.7ms)[0m   [0mDELETE FROM "foo_histories" WHERE ("id" IN (2)) [0m
+  [4;36;1mFoo Create (0.4ms)[0m   [0;1mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES(NULL, '2009-06-24 09:54:46', NULL, NULL, '2009-06-24 09:54:46')[0m
+  [4;35;1mFoo Load (0.2ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Create (0.3ms)[0m   [0;1mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES(NULL, '2009-06-24 09:54:46', NULL, NULL, '2009-06-24 09:54:46')[0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Create (0.3ms)[0m   [0;1mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES(NULL, '2009-06-24 09:54:46', NULL, NULL, '2009-06-24 09:54:46')[0m
+  [4;35;1mFoo Load (0.2ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Load (0.1ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mChangeset Load (0.3ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mFooHistory Load (0.1ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Load (0.1ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mFooHistory Load (0.1ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Load (0.1ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mFooHistory Load (0.1ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mFoo Load (0.1ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Load (0.1ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mFooHistory Load (0.1ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFooHistory Create (0.3ms)[0m   [0mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES(NULL, NULL, '2009-07-04 09:54:46', NULL, NULL, NULL, NULL)[0m
+  [4;36;1mFooHistory Load (0.3ms)[0m   [0;1mSELECT * FROM "foo_histories" LIMIT 1[0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.2ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFooHistory Delete all (1.7ms)[0m   [0;1mDELETE FROM "foo_histories" WHERE ("id" IN (3)) [0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Load (0.1ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mFooHistory Load (0.1ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Load (0.1ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mFooHistory Load (0.1ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFoo Create (0.3ms)[0m   [0mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES('a', '2009-06-24 09:54:46', 'b', 'c', '2009-06-24 09:54:46')[0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') [0m
+  [4;36;1mChangeset Create (0.1ms)[0m   [0;1mINSERT INTO "changesets" ("updated_at", "is_active", "id", "created_at") VALUES('2009-06-24 09:54:46', 't', 0, '2009-06-24 09:54:46')[0m
+  [4;35;1mFooHistory Create (0.1ms)[0m   [0mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('a', 0, '2009-06-24 09:54:46', 3, 'b', NULL, '2009-06-24 09:54:46')[0m
+  [4;36;1mFooHistory Load (0.3ms)[0m   [0;1mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 3) LIMIT 1[0m
+  [4;35;1mFoo Update (0.3ms)[0m   [0mUPDATE "foos" SET "field2" = 'd', "updated_at" = '2009-06-24 09:54:46' WHERE "id" = 3[0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;35;1mFooHistory Create (0.1ms)[0m   [0mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('a', 0, '2009-06-24 09:54:46', 3, 'd', NULL, '2009-06-24 09:54:46')[0m
+  [4;36;1mFooHistory Load (0.3ms)[0m   [0;1mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 3) [0m
+  [4;35;1mFoo Load (0.2ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mFoo Delete all (1.7ms)[0m   [0;1mDELETE FROM "foos" WHERE ("id" IN (3)) [0m
+  [4;35;1mChangeset Load (0.2ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mChangeset Delete all (1.8ms)[0m   [0;1mDELETE FROM "changesets" WHERE ("id" IN (0)) [0m
+  [4;35;1mFooHistory Load (0.3ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFooHistory Delete all (1.7ms)[0m   [0;1mDELETE FROM "foo_histories" WHERE ("id" IN (4)) [0m
+  [4;35;1mFooHistory Delete all (3.5ms)[0m   [0mDELETE FROM "foo_histories" WHERE ("id" IN (5)) [0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.5ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (3.1ms)[0m   [0;1mDROP TABLE "foos"[0m
+  [4;35;1mSQL (2.1ms)[0m   [0mCREATE TABLE "foos" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "field1" varchar(255), "field2" varchar(255), "field3" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (2.0ms)[0m   [0mDROP TABLE "foo_histories"[0m
+  [4;36;1mSQL (1.9ms)[0m   [0;1mCREATE TABLE "foo_histories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "foo_id" integer, "field1" varchar(255), "field2" varchar(255), "field3" varchar(255), "changeset_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (2.4ms)[0m   [0;1mDROP TABLE "bar_histories"[0m
+  [4;35;1mSQL (2.1ms)[0m   [0mCREATE TABLE "bar_histories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL) [0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (2.2ms)[0m   [0mDROP TABLE "changesets"[0m
+  [4;36;1mSQL (2.1ms)[0m   [0;1mCREATE TABLE "changesets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime, "updated_at" datetime, "is_active" boolean) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM "schema_migrations"[0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Create (0.5ms)[0m   [0;1mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES('a', '2009-06-24 09:58:36', 'b', 'c', '2009-06-24 09:58:36')[0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') [0m
+  [4;35;1mChangeset Create (0.4ms)[0m   [0mINSERT INTO "changesets" ("updated_at", "is_active", "id", "created_at") VALUES('2009-06-24 09:58:36', 't', 95, '2009-06-24 09:58:36')[0m
+  [4;36;1mFooHistory Create (0.2ms)[0m   [0;1mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('a', 95, '2009-06-24 09:58:36', 1, 'b', NULL, '2009-06-24 09:58:36')[0m
+  [4;35;1mFoo Update (0.4ms)[0m   [0mUPDATE "foos" SET "field3" = 'a', "updated_at" = '2009-06-24 09:58:36' WHERE "id" = 1[0m
+  [4;36;1mFoo Update (0.6ms)[0m   [0;1mUPDATE "foos" SET "field2" = 'a', "updated_at" = '2009-06-24 09:58:37' WHERE "id" = 1[0m
+  [4;35;1mChangeset Load (0.3ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;36;1mFooHistory Create (0.2ms)[0m   [0;1mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('a', 95, '2009-06-24 09:58:37', 1, 'a', NULL, '2009-06-24 09:58:36')[0m
+  [4;35;1mFoo Create (0.4ms)[0m   [0mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES('a', '2009-06-24 09:58:37', 'c', 'd', '2009-06-24 09:58:37')[0m
+  [4;36;1mChangeset Load (0.2ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;35;1mFooHistory Create (0.2ms)[0m   [0mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('a', 95, '2009-06-24 09:58:37', 2, 'c', NULL, '2009-06-24 09:58:37')[0m
+  [4;36;1mFoo Update (0.6ms)[0m   [0;1mUPDATE "foos" SET "field1" = 'b', "updated_at" = '2009-06-24 09:58:38' WHERE "id" = 2[0m
+  [4;35;1mChangeset Load (0.3ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;36;1mFooHistory Create (0.2ms)[0m   [0;1mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('b', 95, '2009-06-24 09:58:38', 2, 'c', NULL, '2009-06-24 09:58:37')[0m
+  [4;35;1mFoo Update (0.6ms)[0m   [0mUPDATE "foos" SET "field1" = 'c', "updated_at" = '2009-06-24 09:58:39' WHERE "id" = 2[0m
+  [4;36;1mChangeset Load (0.2ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;35;1mFooHistory Create (0.2ms)[0m   [0mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('c', 95, '2009-06-24 09:58:39', 2, 'c', NULL, '2009-06-24 09:58:37')[0m
+  [4;36;1mChangeset Load (0.4ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;35;1mFooHistory Create (0.6ms)[0m   [0mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('d', 95, '2009-06-25 09:58:39', 2, 'c', NULL, '2009-06-24 09:58:37')[0m
+  [4;36;1mFooHistory Load (1.1ms)[0m   [0;1mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 1) ORDER BY updated_at[0m
+  [4;35;1mFooHistory Load (1.2ms)[0m   [0mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 2) ORDER BY updated_at[0m
+  [4;36;1mFooHistory Load (1.2ms)[0m   [0;1mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 2) ORDER BY updated_at[0m
+  [4;35;1mFooHistory Load (1.3ms)[0m   [0mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 2) ORDER BY updated_at[0m
+  [4;36;1mFooHistory Load (1.2ms)[0m   [0;1mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 2) ORDER BY updated_at[0m
+  [4;35;1mFooHistory Load (0.9ms)[0m   [0mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 2) ORDER BY updated_at DESC LIMIT 1[0m
+  [4;36;1mFooHistory Load (0.9ms)[0m   [0;1mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 2) ORDER BY updated_at DESC LIMIT 1[0m
+  [4;35;1mFoo Load (0.3ms)[0m   [0mSELECT * FROM "foos" WHERE ("foos"."id" = 2) [0m
+  [4;36;1mFooHistory Load (0.9ms)[0m   [0;1mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 2) ORDER BY updated_at DESC LIMIT 1[0m
+  [4;35;1mFoo Load (0.4ms)[0m   [0mSELECT * FROM "foos" WHERE ("foos"."id" = 2) [0m
+  [4;36;1mFooHistory Load (1.0ms)[0m   [0;1mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 2) ORDER BY updated_at DESC LIMIT 1[0m
+  [4;35;1mFoo Update (0.4ms)[0m   [0mUPDATE "foos" SET "field1" = 'd', "updated_at" = '2009-06-24 09:58:39' WHERE "id" = 2[0m
+  [4;36;1mFoo Load (0.4ms)[0m   [0;1mSELECT * FROM "foos" WHERE ("foos"."id" = 2) [0m
+  [4;35;1mFooHistory Load (1.2ms)[0m   [0mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 2) ORDER BY updated_at[0m
+  [4;36;1mFoo Load (0.4ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mFoo Delete all (2.8ms)[0m   [0mDELETE FROM "foos" WHERE ("id" IN (1)) [0m
+  [4;36;1mFoo Delete all (3.1ms)[0m   [0;1mDELETE FROM "foos" WHERE ("id" IN (2)) [0m
+  [4;35;1mChangeset Load (0.4ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mChangeset Delete all (2.9ms)[0m   [0;1mDELETE FROM "changesets" WHERE ("id" IN (95)) [0m
+  [4;35;1mFooHistory Load (1.0ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFooHistory Delete all (2.8ms)[0m   [0;1mDELETE FROM "foo_histories" WHERE ("id" IN (1)) [0m
+  [4;35;1mFooHistory Delete all (2.4ms)[0m   [0mDELETE FROM "foo_histories" WHERE ("id" IN (2)) [0m
+  [4;36;1mFooHistory Delete all (2.5ms)[0m   [0;1mDELETE FROM "foo_histories" WHERE ("id" IN (3)) [0m
+  [4;35;1mFooHistory Delete all (2.7ms)[0m   [0mDELETE FROM "foo_histories" WHERE ("id" IN (4)) [0m
+  [4;36;1mFooHistory Delete all (2.6ms)[0m   [0;1mDELETE FROM "foo_histories" WHERE ("id" IN (5)) [0m
+  [4;35;1mFooHistory Delete all (2.5ms)[0m   [0mDELETE FROM "foo_histories" WHERE ("id" IN (6)) [0m
+  [4;36;1mFoo Create (0.4ms)[0m   [0;1mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES(NULL, '2009-06-24 09:58:39', NULL, NULL, '2009-06-24 09:58:39')[0m
+  [4;35;1mFooHistory Load (0.2ms)[0m   [0mSELECT * FROM "foo_histories" LIMIT 1[0m
+  [4;36;1mChangeset Load (0.2ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;35;1mFoo Load (0.3ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mFoo Delete all (2.7ms)[0m   [0;1mDELETE FROM "foos" WHERE ("id" IN (3)) [0m
+  [4;35;1mChangeset Load (0.2ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mFooHistory Load (0.2ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFoo Create (0.4ms)[0m   [0mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES('a', '2009-06-24 09:58:39', 'b', 'c', '2009-06-24 09:58:39')[0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') [0m
+  [4;36;1mChangeset Create (0.2ms)[0m   [0;1mINSERT INTO "changesets" ("updated_at", "is_active", "id", "created_at") VALUES('2009-06-24 09:58:39', 't', 97, '2009-06-24 09:58:39')[0m
+  [4;35;1mFooHistory Create (0.2ms)[0m   [0mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('a', 97, '2009-06-24 09:58:39', 4, 'b', NULL, '2009-06-24 09:58:39')[0m
+  [4;36;1mFoo Update (0.5ms)[0m   [0;1mUPDATE "foos" SET "field3" = 'd', "updated_at" = '2009-06-24 09:58:39' WHERE "id" = 4[0m
+  [4;35;1mFooHistory Load (0.9ms)[0m   [0mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 4) ORDER BY updated_at[0m
+  [4;36;1mFoo Update (0.4ms)[0m   [0;1mUPDATE "foos" SET "field1" = 'b', "updated_at" = '2009-06-24 09:58:39' WHERE "id" = 4[0m
+  [4;35;1mChangeset Load (0.2ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;36;1mFooHistory Create (0.3ms)[0m   [0;1mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('b', 97, '2009-06-24 09:58:39', 4, 'b', NULL, '2009-06-24 09:58:39')[0m
+  [4;35;1mFooHistory Load (1.2ms)[0m   [0mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 4) ORDER BY updated_at[0m
+  [4;36;1mFooHistory Load (1.3ms)[0m   [0;1mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 4) ORDER BY updated_at[0m
+  [4;35;1mFoo Load (0.4ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mFoo Delete all (2.7ms)[0m   [0;1mDELETE FROM "foos" WHERE ("id" IN (4)) [0m
+  [4;35;1mChangeset Load (0.4ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mChangeset Delete all (6.3ms)[0m   [0;1mDELETE FROM "changesets" WHERE ("id" IN (97)) [0m
+  [4;35;1mFooHistory Load (0.7ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFooHistory Delete all (2.0ms)[0m   [0;1mDELETE FROM "foo_histories" WHERE ("id" IN (7)) [0m
+  [4;35;1mFooHistory Delete all (2.2ms)[0m   [0mDELETE FROM "foo_histories" WHERE ("id" IN (8)) [0m
+  [4;36;1mFoo Create (0.4ms)[0m   [0;1mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES(NULL, '2009-06-24 09:58:39', NULL, NULL, '2009-06-24 09:58:39')[0m
+  [4;35;1mChangeset Load (0.3ms)[0m   [0mSELECT * FROM "changesets" LIMIT 1[0m
+  [4;36;1mFoo Load (0.2ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mFoo Delete all (2.3ms)[0m   [0mDELETE FROM "foos" WHERE ("id" IN (5)) [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Create (0.3ms)[0m   [0;1mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES(NULL, '2009-06-24 09:58:39', NULL, NULL, '2009-06-24 09:58:39')[0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" LIMIT 1[0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;35;1mFoo Load (0.4ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mFoo Delete all (2.6ms)[0m   [0;1mDELETE FROM "foos" WHERE ("id" IN (6)) [0m
+  [4;35;1mChangeset Load (0.2ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mFooHistory Load (0.1ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFoo Create (0.3ms)[0m   [0mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES(NULL, '2009-06-24 09:58:40', NULL, NULL, '2009-06-24 09:58:40')[0m
+  [4;36;1mChangeset Load (0.2ms)[0m   [0;1mSELECT * FROM "changesets" LIMIT 1[0m
+  [4;35;1mFoo Load (0.3ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mFoo Delete all (2.4ms)[0m   [0;1mDELETE FROM "foos" WHERE ("id" IN (7)) [0m
+  [4;35;1mChangeset Load (0.2ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mFooHistory Load (0.1ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Load (0.2ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mFooHistory Load (0.1ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Load (0.1ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mFooHistory Load (0.1ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mFooHistory Load (0.1ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFooHistory Create (0.3ms)[0m   [0;1mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES(NULL, NULL, '2009-07-04 09:58:40', NULL, NULL, NULL, NULL)[0m
+  [4;35;1mFooHistory Load (0.3ms)[0m   [0mSELECT * FROM "foo_histories" LIMIT 1[0m
+  [4;36;1mFoo Load (0.1ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mFooHistory Load (0.2ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFooHistory Delete all (2.2ms)[0m   [0mDELETE FROM "foo_histories" WHERE ("id" IN (9)) [0m
+  [4;36;1mFoo Load (0.1ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mFooHistory Load (0.1ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Load (0.1ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mFooHistory Load (0.1ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFoo Load (0.2ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Create (0.3ms)[0m   [0;1mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES('a', '2009-06-24 09:58:40', 'b', 'c', '2009-06-24 09:58:40')[0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') [0m
+  [4;35;1mChangeset Create (0.1ms)[0m   [0mINSERT INTO "changesets" ("updated_at", "is_active", "id", "created_at") VALUES('2009-06-24 09:58:40', 't', 97, '2009-06-24 09:58:40')[0m
+  [4;36;1mFooHistory Create (0.1ms)[0m   [0;1mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('a', 97, '2009-06-24 09:58:40', 8, 'b', NULL, '2009-06-24 09:58:40')[0m
+  [4;35;1mFooHistory Load (0.3ms)[0m   [0mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 8) LIMIT 1[0m
+  [4;36;1mFoo Update (0.2ms)[0m   [0;1mUPDATE "foos" SET "field2" = 'd', "updated_at" = '2009-06-24 09:58:40' WHERE "id" = 8[0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;36;1mFooHistory Create (0.1ms)[0m   [0;1mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('a', 97, '2009-06-24 09:58:40', 8, 'd', NULL, '2009-06-24 09:58:40')[0m
+  [4;35;1mFooHistory Load (0.3ms)[0m   [0mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 8) [0m
+  [4;36;1mFoo Load (0.2ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mFoo Delete all (2.2ms)[0m   [0mDELETE FROM "foos" WHERE ("id" IN (8)) [0m
+  [4;36;1mChangeset Load (0.2ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mChangeset Delete all (2.1ms)[0m   [0mDELETE FROM "changesets" WHERE ("id" IN (97)) [0m
+  [4;36;1mFooHistory Load (0.3ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFooHistory Delete all (2.3ms)[0m   [0mDELETE FROM "foo_histories" WHERE ("id" IN (10)) [0m
+  [4;36;1mFooHistory Delete all (2.2ms)[0m   [0;1mDELETE FROM "foo_histories" WHERE ("id" IN (11)) [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.5ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (3.2ms)[0m   [0;1mDROP TABLE "foos"[0m
+  [4;35;1mSQL (2.4ms)[0m   [0mCREATE TABLE "foos" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "field1" varchar(255), "field2" varchar(255), "field3" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (2.4ms)[0m   [0mDROP TABLE "foo_histories"[0m
+  [4;36;1mSQL (2.3ms)[0m   [0;1mCREATE TABLE "foo_histories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "foo_id" integer, "field1" varchar(255), "field2" varchar(255), "field3" varchar(255), "changeset_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (1.9ms)[0m   [0;1mDROP TABLE "bar_histories"[0m
+  [4;35;1mSQL (2.1ms)[0m   [0mCREATE TABLE "bar_histories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL) [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (2.2ms)[0m   [0mDROP TABLE "changesets"[0m
+  [4;36;1mSQL (2.3ms)[0m   [0;1mCREATE TABLE "changesets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime, "updated_at" datetime, "is_active" boolean) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM "schema_migrations"[0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Create (0.3ms)[0m   [0;1mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES('a', '2009-06-24 10:01:18', 'b', 'c', '2009-06-24 10:01:18')[0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') [0m
+  [4;35;1mChangeset Create (0.5ms)[0m   [0mINSERT INTO "changesets" ("updated_at", "is_active", "id", "created_at") VALUES('2009-06-24 10:01:18', 't', 0, '2009-06-24 10:01:18')[0m
+  [4;36;1mFooHistory Create (0.2ms)[0m   [0;1mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('a', 0, '2009-06-24 10:01:18', 1, 'b', NULL, '2009-06-24 10:01:18')[0m
+  [4;35;1mFoo Update (0.3ms)[0m   [0mUPDATE "foos" SET "field3" = 'a', "updated_at" = '2009-06-24 10:01:18' WHERE "id" = 1[0m
+  [4;36;1mFoo Update (0.6ms)[0m   [0;1mUPDATE "foos" SET "field2" = 'a', "updated_at" = '2009-06-24 10:01:19' WHERE "id" = 1[0m
+  [4;35;1mChangeset Load (0.3ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;36;1mFooHistory Create (0.2ms)[0m   [0;1mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('a', 0, '2009-06-24 10:01:19', 1, 'a', NULL, '2009-06-24 10:01:18')[0m
+  [4;35;1mFoo Create (0.5ms)[0m   [0mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES('a', '2009-06-24 10:01:19', 'c', 'd', '2009-06-24 10:01:19')[0m
+  [4;36;1mChangeset Load (0.3ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;35;1mFooHistory Create (0.2ms)[0m   [0mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('a', 0, '2009-06-24 10:01:19', 2, 'c', NULL, '2009-06-24 10:01:19')[0m
+  [4;36;1mFoo Update (0.6ms)[0m   [0;1mUPDATE "foos" SET "field1" = 'b', "updated_at" = '2009-06-24 10:01:20' WHERE "id" = 2[0m
+  [4;35;1mChangeset Load (0.2ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;36;1mFooHistory Create (0.2ms)[0m   [0;1mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('b', 0, '2009-06-24 10:01:20', 2, 'c', NULL, '2009-06-24 10:01:19')[0m
+  [4;35;1mFoo Update (72.8ms)[0m   [0mUPDATE "foos" SET "field1" = 'c', "updated_at" = '2009-06-24 10:01:21' WHERE "id" = 2[0m
+  [4;36;1mChangeset Load (0.3ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;35;1mFooHistory Create (0.2ms)[0m   [0mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('c', 0, '2009-06-24 10:01:21', 2, 'c', NULL, '2009-06-24 10:01:19')[0m
+  [4;36;1mChangeset Load (0.5ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;35;1mFooHistory Create (0.5ms)[0m   [0mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('d', 0, '2009-06-25 10:01:21', 2, 'c', NULL, '2009-06-24 10:01:19')[0m
+  [4;36;1mFooHistory Load (1.1ms)[0m   [0;1mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 1) ORDER BY updated_at[0m
+  [4;35;1mFooHistory Load (1.2ms)[0m   [0mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 2) ORDER BY updated_at[0m
+  [4;36;1mFooHistory Load (1.2ms)[0m   [0;1mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 2) ORDER BY updated_at[0m
+  [4;35;1mFooHistory Load (1.2ms)[0m   [0mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 2) ORDER BY updated_at[0m
+  [4;36;1mFooHistory Load (1.1ms)[0m   [0;1mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 2) ORDER BY updated_at[0m
+  [4;35;1mFooHistory Load (0.7ms)[0m   [0mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 2) ORDER BY updated_at DESC LIMIT 1[0m
+  [4;36;1mFooHistory Load (0.7ms)[0m   [0;1mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 2) ORDER BY updated_at DESC LIMIT 1[0m
+  [4;35;1mFoo Load (0.3ms)[0m   [0mSELECT * FROM "foos" WHERE ("foos"."id" = 2) [0m
+  [4;36;1mFooHistory Load (0.7ms)[0m   [0;1mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 2) ORDER BY updated_at DESC LIMIT 1[0m
+  [4;35;1mFoo Load (0.2ms)[0m   [0mSELECT * FROM "foos" WHERE ("foos"."id" = 2) [0m
+  [4;36;1mFooHistory Load (0.5ms)[0m   [0;1mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 2) ORDER BY updated_at DESC LIMIT 1[0m
+  [4;35;1mFoo Update (0.3ms)[0m   [0mUPDATE "foos" SET "field1" = 'd', "updated_at" = '2009-06-24 10:01:21' WHERE "id" = 2[0m
+  [4;36;1mFoo Load (0.2ms)[0m   [0;1mSELECT * FROM "foos" WHERE ("foos"."id" = 2) [0m
+  [4;35;1mFooHistory Load (0.8ms)[0m   [0mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 2) ORDER BY updated_at[0m
+  [4;36;1mFoo Load (0.2ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mFoo Delete all (2.2ms)[0m   [0mDELETE FROM "foos" WHERE ("id" IN (1)) [0m
+  [4;36;1mFoo Delete all (2.4ms)[0m   [0;1mDELETE FROM "foos" WHERE ("id" IN (2)) [0m
+  [4;35;1mChangeset Load (0.2ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mChangeset Delete all (2.5ms)[0m   [0;1mDELETE FROM "changesets" WHERE ("id" IN (0)) [0m
+  [4;35;1mFooHistory Load (0.6ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFooHistory Delete all (2.2ms)[0m   [0;1mDELETE FROM "foo_histories" WHERE ("id" IN (1)) [0m
+  [4;35;1mFooHistory Delete all (2.1ms)[0m   [0mDELETE FROM "foo_histories" WHERE ("id" IN (2)) [0m
+  [4;36;1mFooHistory Delete all (2.3ms)[0m   [0;1mDELETE FROM "foo_histories" WHERE ("id" IN (3)) [0m
+  [4;35;1mFooHistory Delete all (2.0ms)[0m   [0mDELETE FROM "foo_histories" WHERE ("id" IN (4)) [0m
+  [4;36;1mFooHistory Delete all (2.3ms)[0m   [0;1mDELETE FROM "foo_histories" WHERE ("id" IN (5)) [0m
+  [4;35;1mFooHistory Delete all (2.3ms)[0m   [0mDELETE FROM "foo_histories" WHERE ("id" IN (6)) [0m
+  [4;36;1mFoo Create (0.3ms)[0m   [0;1mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES(NULL, '2009-06-24 10:01:21', NULL, NULL, '2009-06-24 10:01:21')[0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') [0m
+  [4;35;1mChangeset Create (0.1ms)[0m   [0mINSERT INTO "changesets" ("updated_at", "is_active", "id", "created_at") VALUES('2009-06-24 10:01:21', 't', 0, '2009-06-24 10:01:21')[0m
+  [4;36;1mFooHistory Create (0.1ms)[0m   [0;1mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES(NULL, 0, '2009-06-24 10:01:21', 3, NULL, NULL, '2009-06-24 10:01:21')[0m
+  [4;35;1mFooHistory Load (0.2ms)[0m   [0mSELECT * FROM "foo_histories" LIMIT 1[0m
+  [4;36;1mChangeset Load (0.2ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;35;1mChangeset Load (0.2ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."id" = 0) [0m
+  [4;36;1mFoo Load (0.2ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mFoo Delete all (2.2ms)[0m   [0mDELETE FROM "foos" WHERE ("id" IN (3)) [0m
+  [4;36;1mChangeset Load (0.2ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mChangeset Delete all (2.3ms)[0m   [0mDELETE FROM "changesets" WHERE ("id" IN (0)) [0m
+  [4;36;1mFooHistory Load (0.2ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFooHistory Delete all (2.3ms)[0m   [0mDELETE FROM "foo_histories" WHERE ("id" IN (7)) [0m
+  [4;36;1mFoo Create (0.3ms)[0m   [0;1mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES('a', '2009-06-24 10:01:21', 'b', 'c', '2009-06-24 10:01:21')[0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') [0m
+  [4;35;1mChangeset Create (0.1ms)[0m   [0mINSERT INTO "changesets" ("updated_at", "is_active", "id", "created_at") VALUES('2009-06-24 10:01:21', 't', 0, '2009-06-24 10:01:21')[0m
+  [4;36;1mFooHistory Create (0.1ms)[0m   [0;1mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('a', 0, '2009-06-24 10:01:21', 4, 'b', NULL, '2009-06-24 10:01:21')[0m
+  [4;35;1mFoo Update (0.3ms)[0m   [0mUPDATE "foos" SET "field3" = 'd', "updated_at" = '2009-06-24 10:01:21' WHERE "id" = 4[0m
+  [4;36;1mFooHistory Load (0.6ms)[0m   [0;1mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 4) ORDER BY updated_at[0m
+  [4;35;1mFoo Update (0.3ms)[0m   [0mUPDATE "foos" SET "field1" = 'b', "updated_at" = '2009-06-24 10:01:21' WHERE "id" = 4[0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;35;1mFooHistory Create (0.1ms)[0m   [0mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('b', 0, '2009-06-24 10:01:21', 4, 'b', NULL, '2009-06-24 10:01:21')[0m
+  [4;36;1mFooHistory Load (0.7ms)[0m   [0;1mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 4) ORDER BY updated_at[0m
+  [4;35;1mFooHistory Load (0.7ms)[0m   [0mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 4) ORDER BY updated_at[0m
+  [4;36;1mFoo Load (0.3ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mFoo Delete all (2.1ms)[0m   [0mDELETE FROM "foos" WHERE ("id" IN (4)) [0m
+  [4;36;1mChangeset Load (0.3ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mChangeset Delete all (2.0ms)[0m   [0mDELETE FROM "changesets" WHERE ("id" IN (0)) [0m
+  [4;36;1mFooHistory Load (0.3ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFooHistory Delete all (2.4ms)[0m   [0mDELETE FROM "foo_histories" WHERE ("id" IN (8)) [0m
+  [4;36;1mFooHistory Delete all (2.6ms)[0m   [0;1mDELETE FROM "foo_histories" WHERE ("id" IN (9)) [0m
+  [4;35;1mFoo Create (0.3ms)[0m   [0mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES(NULL, '2009-06-24 10:01:21', NULL, NULL, '2009-06-24 10:01:21')[0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') [0m
+  [4;36;1mChangeset Create (0.1ms)[0m   [0;1mINSERT INTO "changesets" ("updated_at", "is_active", "id", "created_at") VALUES('2009-06-24 10:01:21', 't', 0, '2009-06-24 10:01:21')[0m
+  [4;35;1mFooHistory Create (0.1ms)[0m   [0mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES(NULL, 0, '2009-06-24 10:01:21', 5, NULL, NULL, '2009-06-24 10:01:21')[0m
+  [4;36;1mChangeset Load (0.2ms)[0m   [0;1mSELECT * FROM "changesets" LIMIT 1[0m
+  [4;35;1mFooHistory Load (0.4ms)[0m   [0mSELECT * FROM "foo_histories" WHERE ("foo_histories"."changeset_id" = 0) [0m
+  [4;36;1mChangeset Load (0.2ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;35;1mFooHistory Load (0.4ms)[0m   [0mSELECT * FROM "foo_histories" WHERE ("foo_histories"."changeset_id" = 0) [0m
+  [4;36;1mChangeset Load (0.2ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;35;1mFooHistory Load (0.2ms)[0m   [0mSELECT * FROM "foo_histories" WHERE ("foo_histories"."changeset_id" = 0) [0m
+  [4;36;1mFoo Load (0.2ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mFoo Delete all (2.4ms)[0m   [0mDELETE FROM "foos" WHERE ("id" IN (5)) [0m
+  [4;36;1mChangeset Load (0.2ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mChangeset Delete all (2.4ms)[0m   [0mDELETE FROM "changesets" WHERE ("id" IN (0)) [0m
+  [4;36;1mFooHistory Load (0.3ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFooHistory Delete all (2.2ms)[0m   [0mDELETE FROM "foo_histories" WHERE ("id" IN (10)) [0m
+  [4;36;1mFoo Create (0.3ms)[0m   [0;1mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES(NULL, '2009-06-24 10:01:21', NULL, NULL, '2009-06-24 10:01:21')[0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') [0m
+  [4;35;1mChangeset Create (0.1ms)[0m   [0mINSERT INTO "changesets" ("updated_at", "is_active", "id", "created_at") VALUES('2009-06-24 10:01:21', 't', 0, '2009-06-24 10:01:21')[0m
+  [4;36;1mFooHistory Create (0.1ms)[0m   [0;1mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES(NULL, 0, '2009-06-24 10:01:21', 6, NULL, NULL, '2009-06-24 10:01:21')[0m
+  [4;35;1mFooHistory Load (0.3ms)[0m   [0mSELECT * FROM "foo_histories" LIMIT 1[0m
+  [4;36;1mChangeset Load (0.2ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;35;1mFoo Load (0.2ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mFoo Delete all (2.0ms)[0m   [0;1mDELETE FROM "foos" WHERE ("id" IN (6)) [0m
+  [4;35;1mChangeset Load (0.2ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mChangeset Delete all (2.4ms)[0m   [0;1mDELETE FROM "changesets" WHERE ("id" IN (0)) [0m
+  [4;35;1mFooHistory Load (0.2ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFooHistory Delete all (1.8ms)[0m   [0;1mDELETE FROM "foo_histories" WHERE ("id" IN (11)) [0m
+  [4;35;1mFoo Create (0.4ms)[0m   [0mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES(NULL, '2009-06-24 10:01:21', NULL, NULL, '2009-06-24 10:01:21')[0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') [0m
+  [4;36;1mChangeset Create (0.1ms)[0m   [0;1mINSERT INTO "changesets" ("updated_at", "is_active", "id", "created_at") VALUES('2009-06-24 10:01:21', 't', 0, '2009-06-24 10:01:21')[0m
+  [4;35;1mFooHistory Create (0.1ms)[0m   [0mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES(NULL, 0, '2009-06-24 10:01:21', 7, NULL, NULL, '2009-06-24 10:01:21')[0m
+  [4;36;1mChangeset Load (0.2ms)[0m   [0;1mSELECT * FROM "changesets" LIMIT 1[0m
+  [4;35;1mFoo Load (0.2ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mFoo Delete all (2.3ms)[0m   [0;1mDELETE FROM "foos" WHERE ("id" IN (7)) [0m
+  [4;35;1mChangeset Load (0.2ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mChangeset Delete all (2.8ms)[0m   [0;1mDELETE FROM "changesets" WHERE ("id" IN (0)) [0m
+  [4;35;1mFooHistory Load (0.2ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFooHistory Delete all (2.3ms)[0m   [0;1mDELETE FROM "foo_histories" WHERE ("id" IN (12)) [0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Load (0.1ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mFooHistory Load (0.1ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Load (0.1ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mFooHistory Load (0.1ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mFooHistory Load (0.1ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFooHistory Create (0.3ms)[0m   [0;1mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES(NULL, NULL, '2009-07-04 10:01:21', NULL, NULL, NULL, NULL)[0m
+  [4;35;1mFooHistory Load (0.3ms)[0m   [0mSELECT * FROM "foo_histories" LIMIT 1[0m
+  [4;36;1mFoo Load (0.1ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mFooHistory Load (0.2ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFooHistory Delete all (2.2ms)[0m   [0mDELETE FROM "foo_histories" WHERE ("id" IN (13)) [0m
+  [4;36;1mFoo Load (0.1ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mFooHistory Load (0.1ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Load (0.1ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" [0m
+  [4;36;1mFooHistory Load (0.1ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFoo Load (0.1ms)[0m   [0mSELECT * FROM "foos" [0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mFooHistory Load (0.1ms)[0m   [0mSELECT * FROM "foo_histories" [0m
+  [4;36;1mFoo Create (0.3ms)[0m   [0;1mINSERT INTO "foos" ("field1", "updated_at", "field2", "field3", "created_at") VALUES('a', '2009-06-24 10:01:21', 'b', 'c', '2009-06-24 10:01:21')[0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;36;1mChangeset Load (0.1ms)[0m   [0;1mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') [0m
+  [4;35;1mChangeset Create (0.1ms)[0m   [0mINSERT INTO "changesets" ("updated_at", "is_active", "id", "created_at") VALUES('2009-06-24 10:01:21', 't', 0, '2009-06-24 10:01:21')[0m
+  [4;36;1mFooHistory Create (0.1ms)[0m   [0;1mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('a', 0, '2009-06-24 10:01:21', 8, 'b', NULL, '2009-06-24 10:01:21')[0m
+  [4;35;1mFooHistory Load (0.3ms)[0m   [0mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 8) LIMIT 1[0m
+  [4;36;1mFoo Update (0.3ms)[0m   [0;1mUPDATE "foos" SET "field2" = 'd', "updated_at" = '2009-06-24 10:01:21' WHERE "id" = 8[0m
+  [4;35;1mChangeset Load (0.1ms)[0m   [0mSELECT * FROM "changesets" WHERE ("changesets"."is_active" = 't') LIMIT 1[0m
+  [4;36;1mFooHistory Create (0.2ms)[0m   [0;1mINSERT INTO "foo_histories" ("field1", "changeset_id", "updated_at", "foo_id", "field2", "field3", "created_at") VALUES('a', 0, '2009-06-24 10:01:21', 8, 'd', NULL, '2009-06-24 10:01:21')[0m
+  [4;35;1mFooHistory Load (0.3ms)[0m   [0mSELECT * FROM "foo_histories" WHERE ("foo_histories"."foo_id" = 8) [0m
+  [4;36;1mFoo Load (0.2ms)[0m   [0;1mSELECT * FROM "foos" [0m
+  [4;35;1mFoo Delete all (2.2ms)[0m   [0mDELETE FROM "foos" WHERE ("id" IN (8)) [0m
+  [4;36;1mChangeset Load (0.2ms)[0m   [0;1mSELECT * FROM "changesets" [0m
+  [4;35;1mChangeset Delete all (2.2ms)[0m   [0mDELETE FROM "changesets" WHERE ("id" IN (0)) [0m
+  [4;36;1mFooHistory Load (0.3ms)[0m   [0;1mSELECT * FROM "foo_histories" [0m
+  [4;35;1mFooHistory Delete all (2.1ms)[0m   [0mDELETE FROM "foo_histories" WHERE ("id" IN (14)) [0m
+  [4;36;1mFooHistory Delete all (2.3ms)[0m   [0;1mDELETE FROM "foo_histories" WHERE ("id" IN (15)) [0m

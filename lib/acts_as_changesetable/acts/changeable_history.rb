@@ -20,7 +20,7 @@ module ActsAsChangesetable
       # Turns of Rails' autotimestamping if we want to copy timestamps ourselves
       # Then add a belongs_to for :changeset
       def changeable_history_setup
-        if self.changesetable_options.copy_timestamps?
+        unless self.changesetable_options.no_copy_timestamps?
           self.instance_eval {
             def record_timestamps; return false; end;
             def record_timestamps=(arg); return false; end;
@@ -36,21 +36,21 @@ module ActsAsChangesetable
         # Create field names from symbols
         my_fields = self.changeable_fields.map{|m| m.to_s}
         # Find the intersection of tracked fields and changed fields for item.
-        if(force || (my_fields & changeable.changed).size > 0 || self.new_record?)
+        if(force || (my_fields & changeable.changed).size > 0 || changeable.new_record?)
           new_change = self.new
           new_change.send("#{self.changeable_fk}=", changeable.id)
           for field in self.changeable_fields
             new_change.send("#{field}=", changeable.send(field))
           end
-          if self.changesetable_options.copy_timestamps?
-            new_change.updated_at = changeable.updated_at
-            new_change.created_at = changeable.created_at
+          unless self.changesetable_options.no_copy_timestamps?
+            new_change.updated_at = changeable.updated_at if(changeable.respond_to?(:updated_at) && new_change.respond_to?(:updated_at))
+            new_change.created_at = changeable.created_at if(changeable.respond_to?(:created_at) && new_change.respond_to?(:created_at))
           end
-          if self.changesetable_options.copy_deleted?
-            new_change.deleted_at = changeable.deleted_at
+          unless self.changesetable_options.no_copy_deleted?
+            new_change.deleted_at = changeable.deleted_at if(changeable.respond_to?(:deleted_at) && new_change.respond_to?(:deleted_at))
           end
           new_change.changeset = self.changeset_class.active_changeset
-          self.record_timestamps = false if self.changesetable_options.copy_timestamps?
+          self.record_timestamps = false unless self.changesetable_options.no_copy_timestamps?
           new_change.save
           new_change
         else

@@ -39,12 +39,12 @@ module ActsAsChangesetable
       for field in self.changeable_fields
         self.send("#{field}=", history.send(field))
       end
-      if self.changesetable_options.copy_timestamps?
-        self.updated_at = history.updated_at
-        self.created_at = history.created_at
+      unless self.changesetable_options.no_copy_timestamps?
+        self.updated_at = history.updated_at if(self.respond_to?(:updated_at) && history.respond_to?(:updated_at))
+        self.created_at = history.created_at if(self.respond_to?(:created_at) && history.respond_to?(:created_at))
       end
-      if self.changesetable_options.copy_deleted?
-        self.deleted_at = history.deleted_at
+      unless self.changesetable_options.no_copy_deleted?
+        self.deleted_at = history.deleted_at if(self.respond_to?(:deleted_at) && history.respond_to?(:deleted_at))
       end
       self.no_history = true
       return self
@@ -63,7 +63,7 @@ module ActsAsChangesetable
     # Returns true if object is outdated, else returns false.
     def outdated?
       history = self.latest_change
-      return (history.updated_at > self.updated_at)
+      return (history.updated_at > self.updated_at) 
     end
     
     
@@ -86,10 +86,11 @@ module ActsAsChangesetable
       # I imagine should exist somewhere.)
       # 
       # self.new_record? <- found it.
-      # Don't need the separate callbacks any more.
+      # Don't need the separate callbacks any more... unless it doesn't work...
+      # Testing shows new_record? is returning false for new records. Wonder why that is.
       def changeable_setup
-        after_save :after_changeable_save
-        # after_create :after_changeable_create
+        after_update :after_changeable_save
+        after_create :after_changeable_create
       end
     end
   end
