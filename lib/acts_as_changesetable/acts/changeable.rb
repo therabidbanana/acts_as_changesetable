@@ -14,17 +14,27 @@ module ActsAsChangesetable
     # The flag is reset after every save operation.
     attr_accessor :no_history
     
+    # Callback hooked into after_destroy that copies every field required into the history class.
+    # Also associates the history with the current changeset
+    def after_changeable_destroy
+      self.changeable_history_class.new_from_changeable self unless (self.no_history || self.changesetable_options.no_copy_deleted?)
+      self.no_history = false
+      true
+    end
+    
     # Callback hooked into after_save that copies every field required into the history class.
     # Also associates the history with the current changeset
     def after_changeable_save
       self.changeable_history_class.new_from_changeable self unless self.no_history
       self.no_history = false
+      true
     end
     
     # Callback hooked into after_create to force creation of change history item
     def after_changeable_create
       self.changeable_history_class.new_from_changeable self, true unless self.no_history
       self.no_history = false
+      true
     end
     
     # Call to synchronize the changeable with the a version in history, default to latest revision
@@ -89,6 +99,7 @@ module ActsAsChangesetable
       # Don't need the separate callbacks any more... unless it doesn't work...
       # Testing shows new_record? is returning false for new records. Wonder why that is.
       def changeable_setup
+        after_destroy :after_changeable_destroy
         after_update :after_changeable_save
         after_create :after_changeable_create
       end
