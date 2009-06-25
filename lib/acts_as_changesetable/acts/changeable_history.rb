@@ -50,7 +50,6 @@ module ActsAsChangesetable
             new_change.deleted_at = changeable.deleted_at if(changeable.respond_to?(:deleted_at) && new_change.respond_to?(:deleted_at))
           end
           new_change.changeset = self.changeset_class.active_changeset
-          self.record_timestamps = false unless self.changesetable_options.no_copy_timestamps?
           new_change.save
           new_change
         else

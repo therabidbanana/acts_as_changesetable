@@ -130,7 +130,7 @@ module ActsAsChangesetable
       # Returns a list of changeable fields
       def changeable_fields(for_changeable = false)
         list = []
-        for_changeable.attributes.each{|k,v| list << k unless [:updated_at, :created_at, :deleted_at, :id].include?(k)} if for_changeable
+        for_changeable.attributes.each{|k,v| list << k unless ['updated_at', 'created_at', 'deleted_at', 'id'].include?(k)} if for_changeable
         return list if (for_changeable && !self.changesetable_options.fields)
         return self.changesetable_options.fields 
       end

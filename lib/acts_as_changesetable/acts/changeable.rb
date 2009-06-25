@@ -11,13 +11,13 @@ module ActsAsChangesetable
     # Use with caution, as this could put the data in an unvalid state.
     # This flag will be set if you use sync_changeable. 
     #
-    # The flag is reset after every save operation.
+    # The flag is reset after every database operation.
     attr_accessor :no_history
     
     # Callback hooked into after_destroy that copies every field required into the history class.
     # Also associates the history with the current changeset
     def after_changeable_destroy
-      self.changeable_history_class.new_from_changeable self unless (self.no_history || self.changesetable_options.no_copy_deleted?)
+      self.changeable_history_class.new_from_changeable(self, true) unless (self.no_history || self.changesetable_options.no_copy_deleted?)
       self.no_history = false
       true
     end
@@ -25,14 +25,14 @@ module ActsAsChangesetable
     # Callback hooked into after_save that copies every field required into the history class.
     # Also associates the history with the current changeset
     def after_changeable_save
-      self.changeable_history_class.new_from_changeable self unless self.no_history
+      self.changeable_history_class.new_from_changeable(self) unless self.no_history
       self.no_history = false
       true
     end
     
     # Callback hooked into after_create to force creation of change history item
     def after_changeable_create
-      self.changeable_history_class.new_from_changeable self, true unless self.no_history
+      self.changeable_history_class.new_from_changeable(self, true) unless self.no_history
       self.no_history = false
       true
     end
@@ -91,13 +91,6 @@ module ActsAsChangesetable
     
     module ClassMethods
       # Add callbacks to this class so we can mirror changes into our history classs
-      # Split into two classes because dirty tracking returns false for new objects. 
-      # (Which sort of makes sense. I can't find an "unsaved" ActiveModel method though, which
-      # I imagine should exist somewhere.)
-      # 
-      # self.new_record? <- found it.
-      # Don't need the separate callbacks any more... unless it doesn't work...
-      # Testing shows new_record? is returning false for new records. Wonder why that is.
       def changeable_setup
         after_destroy :after_changeable_destroy
         after_update :after_changeable_save
