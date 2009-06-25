@@ -123,7 +123,7 @@ module ActsAsChangesetable
         if(self.changesetable_options.changeable_fk)
           self.changesetable_options.changeable_fk
         else
-          "#{self.changeable_class_name.downcase}_id".to_sym
+          "#{self.changeable_class_name.underscore}_id".to_sym
         end
       end
       
