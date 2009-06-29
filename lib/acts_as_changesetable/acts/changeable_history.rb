@@ -8,7 +8,8 @@ module ActsAsChangesetable
     
     # Returns the associated changeable
     def changeable
-      self.changeable_class.find(self.send(self.changeable_fk))
+      return self.changeable_class.find(self.send(self.changeable_fk)) unless (self.changeable_class.respond_to?(:find_with_deleted))
+      self.changeable_class.find_with_deleted(self.send(self.changeable_fk))
     end
     
     # Checks the associated changeable and updates it if needed
