@@ -117,6 +117,7 @@ module ActsAsChangesetable
           end
         end
         self.record_timestamps = false
+        new_guy.no_history = true
         new_guy.save
         self.record_timestamps = true
         new_guy
