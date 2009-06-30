@@ -70,6 +70,8 @@ module ActsAsChangesetable
       self
     end
     
+
+    
     # Returns true if object is outdated, else returns false.
     def outdated?
       history = self.latest_change
@@ -95,6 +97,29 @@ module ActsAsChangesetable
         after_destroy :after_changeable_destroy
         after_update :after_changeable_save
         after_create :after_changeable_create
+      end
+      
+      # Creates a new changeable from a history item if necessary
+      def new_from_history(history)
+        # create a new changeable 
+        # (note: block syntax is only way to set primary key manually)
+        new_guy = self.new do |c|
+          c.id = history.send("#{changeable_fk}")    
+          for field in c.changeable_fields
+            c.send("#{field}=", history.send(field))
+          end
+          unless self.changesetable_options.no_copy_timestamps?
+            c.updated_at = history.updated_at if(history.respond_to?(:updated_at) && c.respond_to?(:updated_at))
+            c.created_at = history.created_at if(history.respond_to?(:created_at) && c.respond_to?(:created_at))
+          end
+          unless self.changesetable_options.no_copy_deleted?
+            c.deleted_at = history.deleted_at if(history.respond_to?(:deleted_at) && c.respond_to?(:deleted_at))
+          end
+        end
+        self.record_timestamps = false
+        new_guy.save
+        self.record_timestamps = true
+        new_guy
       end
     end
   end

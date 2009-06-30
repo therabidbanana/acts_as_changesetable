@@ -10,14 +10,25 @@ module ActsAsChangesetable
     def changeable
       return self.changeable_class.find(self.send(self.changeable_fk)) unless (self.changeable_class.respond_to?(:find_with_deleted))
       self.changeable_class.find_with_deleted(self.send(self.changeable_fk))
+    rescue 
+      false
     end
     
     # Checks the associated changeable and updates it if needed
     def sync_changeable!
-      self.changeable.sync_changeable! if(self.changeable.updated_at < self.updated_at)
+      unless(self.changeable)
+        self.changeable_class.new_from_history(self)
+      end
+      self.changeable.sync_changeable! if(self.changeable and self.changeable.updated_at < self.updated_at)
     end
     
+    # Add callback after_find - will hurt performance quite a bit... better way to do it?
+    def filter_invalid_changesets
+      self.changeset_class.exists?(self.changeset_id)
+    end
     module ClassMethods
+
+      
       # Turns of Rails' autotimestamping if we want to copy timestamps ourselves
       # Then add a belongs_to for :changeset
       def changeable_history_setup
@@ -28,6 +39,7 @@ module ActsAsChangesetable
           }
         end
         belongs_to :changeset, :class_name => self.changeset_class_name
+        after_find :filter_invalid_changesets
       end
       
       # Conditionally creates a new change history item based on the changeable given
