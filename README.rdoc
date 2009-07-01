@@ -155,4 +155,4 @@ The changeset model will have three new methods:
 
   Return all changes associated with this changeset. Returns as a hash of :classname => class.find_all_by_changeset_id()
 
-Copyright (c) 2009 David Haslem, released under the MIT license
+Copyright (c) 2009 David Haslem, released under the MIT license and stuff.
