@@ -13,6 +13,7 @@ module ActsAsChangesetable
     rescue 
       false
     end
+
     
     # Checks the associated changeable and updates it if needed
     def sync_changeable!
@@ -27,7 +28,14 @@ module ActsAsChangesetable
       self.changeset_class.exists?(self.changeset_id)
     end
     module ClassMethods
-
+    
+      # Finds all matching histories for a given set of changesets
+      def find_by_changesets(list_of_changesets)
+        list = []
+        list_of_changesets ||= []
+        list_of_changesets.each {|c| list << self.find_all_by_changeset_id(c)}
+        list.flatten.compact
+      end
       
       # Turns of Rails' autotimestamping if we want to copy timestamps ourselves
       # Then add a belongs_to for :changeset
