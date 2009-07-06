@@ -33,8 +33,8 @@ module ActsAsChangesetable
       def find_by_changesets(list_of_changesets)
         list = []
         list_of_changesets ||= []
-        list_of_changesets.each {|c| list << self.find_all_by_changeset_id(c)}
-        list.flatten.compact
+        list_of_changesets.each {|c| list = list + self.find_all_by_changeset_id(c)}
+        list.flatten
       end
       
       # Turns of Rails' autotimestamping if we want to copy timestamps ourselves
